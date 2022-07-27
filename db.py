@@ -5,8 +5,8 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 
 db = {
-    'user'     : 'jake',		# 1)
-    'password' : '0000',		# 2)
+    'user'     : 'user',		# 1)
+    'password' : 'password',		# 2)
     'host'     : 'localhost',	# 3)
     'port'     : 3306,			# 4)
     'database' : 'chatbot'		# 5)
