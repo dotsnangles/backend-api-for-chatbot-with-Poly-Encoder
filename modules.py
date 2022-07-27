@@ -22,8 +22,9 @@ os.rename('./chatbot_output/', './model')
 try:
     response_table = pd.read_pickle('./data/response_data.pickle')
 except:
+    import pickle5
     with open('./data/response_data.pickle', "rb") as f:
-        response_table = pickle.load(f)
+        response_table = pickle5.load(f)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # print(device)
