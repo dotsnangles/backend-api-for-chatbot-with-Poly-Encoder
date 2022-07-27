@@ -129,5 +129,5 @@ def get_idx(query):
     return idx
 
 def chatbot_colab(query):
-    idx = get_index(query)
+    idx = get_idx(query)
     return response_table['response'][idx]
