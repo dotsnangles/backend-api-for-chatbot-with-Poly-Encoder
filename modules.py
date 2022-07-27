@@ -19,7 +19,11 @@ gdown.download_folder(id='1RH7laK4WlucCw68ZeExFvyg7vs-kB_x3', quiet=True, use_co
 os.rename('./감성대화챗봇데이터/', './data')
 os.rename('./chatbot_output/', './model')
 
-response_table = pd.read_pickle('./data/response_data.pickle')
+try:
+    response_table = pd.read_pickle('./data/response_data.pickle')
+except:
+    with open('./data/response_data.pickle', "rb") as f:
+        response_table = pickle.load(f)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # print(device)
