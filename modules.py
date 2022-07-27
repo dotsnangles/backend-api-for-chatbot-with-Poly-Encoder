@@ -22,8 +22,8 @@ os.rename('./chatbot_output/', './model')
 # try:
 #     response_table = pd.read_pickle('./data/response_data.pickle')
 # except:
-with open('./data/response_data.pickle', "rb") as f:
-    response_table = pickle.load(f)
+    # with open('./data/response_data.pickle', "rb") as f:
+    #     response_table = pickle.load(f)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # print(device)
@@ -137,6 +137,9 @@ def get_cand_embs():
         return cand_embs.to(device)
 
 cand_embs = get_cand_embs()
+
+with open('./data/response_data.pickle', "rb") as f:
+    response_table = pickle.load(f)
 
 def chatbot(query):
     query = [query]
