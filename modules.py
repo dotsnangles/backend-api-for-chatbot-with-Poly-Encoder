@@ -131,3 +131,13 @@ def get_cand_embs():
             y = cand_embs_lst[idx]
             cand_embs = torch.cat((cand_embs, y), 1)
         return cand_embs.to(device)
+
+cand_embs = get_cand_embs()
+
+def chatbot(query):
+    query = [query]
+    poly_embs = embs_gen(*context_input(query))
+    score_lst = score(poly_embs, cand_embs)
+    idx = score_lst.argmax(1)
+    idx = int(idx[0])
+    return response_table['response'][idx][0]
