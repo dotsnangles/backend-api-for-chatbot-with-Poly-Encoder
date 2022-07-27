@@ -27,4 +27,4 @@ mysql> CREATE DATABASE chatbot;
 
 ### On Colab
 
-![Link](https://colab.research.google.com/github/dotsnangles/chatbot-rest-api/blob/master/on_colab.ipynb)
+![Link](https://github.com/dotsnangles/chatbot-rest-api/blob/master/on_colab.ipynb)
