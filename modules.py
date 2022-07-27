@@ -1,3 +1,5 @@
+import pickle, os, gdown
+import pandas as pd
 import numpy as np
 import torch
 import torch.nn as nn
@@ -5,6 +7,11 @@ import torch.nn.functional as F
 from transformers import BertPreTrainedModel, BertConfig, BertModel, BertTokenizer, AutoModel
 from encoder.encoder import PolyEncoder
 from encoder.transform import SelectionJoinTransform, SelectionSequentialTransform
+
+gdown.download_folder(id='1Ipr-aNF5ELMY0HTXAmeV26LlgktKUfmG', quiet=True, use_cookies=False)
+gdown.download_folder(id='1RH7laK4WlucCw68ZeExFvyg7vs-kB_x3', quiet=True, use_cookies=False)
+os.rename('./감성대화챗봇데이터/', './data')
+os.rename('./chatbot_output/', './model')
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # print(device)
@@ -81,3 +88,38 @@ def score(embs, cand_emb):
         ctx_emb = model.dot_attention(cand_emb, embs, embs) # [bs, res_cnt, dim]
         dot_product = (ctx_emb*cand_emb).sum(-1)
         return dot_product
+
+def get_cand_embs():
+    if os.path.exists('./data/cand_embs.pickle'):
+        with open('./data/cand_embs.pickle', 'rb') as f:
+            cand_embs = pickle.load(f)
+        return cand_embs.to(device)
+    else:
+        with open('./data/train_data_source.pickle', 'rb') as f:
+            train = pickle.load(f)
+
+        data = {
+            'context' : [],
+            'response': []
+        }
+
+        for sample in train:
+            data['context'].append(sample['context'])
+            data['response'].append([sample['responses'][0]])
+
+
+        df = pd.DataFrame(data)
+
+        ## generate cand_embs & create tensor table on device
+        response_input_srs = df['response'].apply(response_input)
+        response_input_lst = response_input_srs.to_list()
+
+        cand_embs_lst = []
+        for sample in response_input_lst:
+            cand_embs_lst.append(cand_emb_gen(*sample).to('cpu'))
+
+        cand_embs = cand_embs_lst[0]
+        for idx in range(1, len(cand_embs_lst)):
+            y = cand_embs_lst[idx]
+            cand_embs = torch.cat((cand_embs, y), 1)
+        return cand_embs.to(device)
