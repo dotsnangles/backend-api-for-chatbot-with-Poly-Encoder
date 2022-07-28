@@ -127,7 +127,3 @@ def get_idx(query):
     idx = score_lst.argmax(1)
     idx = int(idx[0])
     return idx
-
-def chatbot_colab(query):
-    idx = get_idx(query)
-    return response_table['response'][idx]
