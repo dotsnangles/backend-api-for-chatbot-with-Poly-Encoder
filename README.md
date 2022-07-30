@@ -39,8 +39,8 @@ python api.py
 ```
 
 ### Test with Postman
-![api_test](./images/api_test.png)
 ![headers](./images/headers.png)
+![api_test](./images/api_test.png)
 
 ### On Colab
 
