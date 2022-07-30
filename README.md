@@ -1,13 +1,13 @@
 # backend-api-for-chatbot-with-Poly-Encoder
 
 ### Desclaimer
-This is a post work of retrieval-based-chatbot-with-Poly-Encoder project.  
-All the modules needed for the DB connection and the backend api are organized.  
+This is a post work of my retrieval-based-chatbot-with-Poly-Encoder project.  
+All the modules needed for the DB connection and backend api are organized.  
 
-It runs ok on my labtop with cpu.  
+It runs ok on my labtop with cpu(AMD 5500U).  
 
 I hope that someone finds this repo useful.  
-Send me a message if someone has to ask about the project. 
+Send me a message if anyone has to ask about the project. 
 
 
 ### Related repositories
